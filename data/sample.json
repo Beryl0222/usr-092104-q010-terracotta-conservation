@@ -1,0 +1,9 @@
+{
+  "event_id": "sample-010",
+  "event_type": "OBJECT_LIFTED",
+  "aggregate_type": "excavated_object",
+  "aggregate_id": "aggregate-010",
+  "occurred_at": "2026-09-20T12:00:00+08:00",
+  "version": 1,
+  "summary": "秦俑现场保护交接领域样例"
+}
