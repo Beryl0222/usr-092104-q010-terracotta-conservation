@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "秦俑现场保护交接领域事件",
+  "description": "发掘—检测—拼合—保护—封装—交接—入库全链路事件契约。既有事件与聚合保持兼容，新增事件只追加、不重定义。",
   "type": "object",
   "required": [
     "event_id",
@@ -19,20 +20,52 @@
     "event_type": {
       "type": "string",
       "enum": [
+        "UNIT_REGISTERED",
+        "STRATUM_RECORDED",
         "OBJECT_LIFTED",
+        "IDENTITY_PROPOSED",
+        "IDENTITY_RESOLVED",
+        "FRAGMENT_SPLIT",
+        "JOIN_TENTATIVE",
+        "JOIN_CONFIRMED",
+        "JOIN_REVOKED",
         "ENVIRONMENT_SAMPLED",
-        "ACTION_AUTHORIZED",
+        "MEASUREMENT_BACKFILLED",
+        "DEVICE_CALIBRATED",
+        "DEVICE_CALIBRATION_EXPIRED",
+        "NITROGEN_HUMIDITY_RECORDED",
+        "PACKAGING_ANOMALY_DETECTED",
+        "ACQUISITION_RECORDED",
+        "PACKAGE_PREPARED",
         "HANDOFF_SIGNED",
-        "OBJECT_ACCESSIONED"
+        "OBJECT_FROZEN",
+        "OBJECT_UNFROZEN",
+        "ALERT_RAISED",
+        "ALERT_ACKNOWLEDGED",
+        "ACTION_AUTHORIZED",
+        "ACTION_EXECUTED",
+        "OBJECT_ACCESSIONED",
+        "LOCATION_ASSIGNED",
+        "SENSITIVITY_CHANGED",
+        "PUBLICATION_STATUS_CHANGED"
       ]
     },
     "aggregate_type": {
       "type": "string",
       "enum": [
+        "excavation_unit",
         "excavated_object",
+        "identity_candidate",
+        "fragment_relation",
         "environment_series",
+        "sensor_device",
+        "preservation_packaging",
+        "acquisition_dataset",
+        "transport_package",
         "conservation_action",
-        "custody_handoff"
+        "custody_handoff",
+        "threshold_alert",
+        "storage_location"
       ]
     },
     "aggregate_id": {
@@ -41,16 +74,197 @@
     },
     "occurred_at": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "事件进入系统（登记/签署）时间。补数的实际采集时间放在 payload.measured_at。"
     },
     "version": {
       "type": "integer",
-      "minimum": 1
+      "minimum": 1,
+      "description": "同一 aggregate_id 内从 1 开始严格递增。"
     },
     "summary": {
       "type": "string",
       "minLength": 1
+    },
+    "payload": {
+      "type": "object",
+      "description": "按 event_type 约定字段，见 allOf 中的 if/then 约束。",
+      "properties": {
+        "metric": {
+          "type": "string",
+          "enum": ["humidity", "temperature", "nitrogen_purity", "oxygen"]
+        },
+        "quality": {
+          "type": "string",
+          "enum": ["reliable", "backfilled", "suspect", "calibration_expired"],
+          "description": "reliable=在线可靠测量；backfilled=断线补数；suspect=可疑；calibration_expired=校准失效，不得作为可靠测量。"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["humidity_threshold", "device_inaccurate", "packaging_anomaly"]
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["info", "warning", "critical"]
+        },
+        "object_kind": {
+          "type": "string",
+          "enum": ["fragment", "figure", "sample"]
+        },
+        "sensitivity": {
+          "type": "string",
+          "enum": ["normal", "sensitive_pit", "unpublished_find"]
+        },
+        "publication_status": {
+          "type": "string",
+          "enum": ["unpublished", "published"]
+        },
+        "modality": {
+          "type": "string",
+          "enum": ["ultrasound", "three_d"]
+        },
+        "action_type": {
+          "type": "string",
+          "enum": ["cleaning", "reinforcement", "desalination", "other"]
+        },
+        "human_confirmed": {
+          "type": "boolean",
+          "const": true,
+          "description": "阈值告警只能促成人工处置；清理/加固授权必须由修复人员人工确认，禁止系统/告警自动生成。"
+        },
+        "disposition": {
+          "type": "string",
+          "enum": ["referred_for_handling", "monitoring", "resolved"]
+        },
+        "resolution": {
+          "type": "string",
+          "enum": ["confirmed", "rejected"]
+        },
+        "signer_role": {
+          "type": "string",
+          "enum": ["relinquishing", "receiving"]
+        },
+        "scope": {
+          "type": "string",
+          "enum": ["object", "pit"]
+        }
+      },
+      "additionalProperties": true
     }
   },
-  "additionalProperties": true
+  "additionalProperties": true,
+  "allOf": [
+    {
+      "if": { "properties": { "event_type": { "const": "UNIT_REGISTERED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "excavation_unit" }, "payload": { "required": ["unit_code", "layer_code"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "STRATUM_RECORDED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "excavation_unit" }, "payload": { "required": ["unit_id", "layer_code", "sequence"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "OBJECT_LIFTED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "excavated_object" }, "payload": { "required": ["unit_id", "object_code", "object_kind"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "IDENTITY_PROPOSED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "identity_candidate" }, "payload": { "required": ["object_id", "candidate_figure_id", "proposed_by"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "IDENTITY_RESOLVED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "identity_candidate" }, "payload": { "required": ["proposal_id", "resolution"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "FRAGMENT_SPLIT" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "fragment_relation" }, "payload": { "required": ["parent_object_id", "fragment_object_ids"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "JOIN_TENTATIVE" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "fragment_relation" }, "payload": { "required": ["fragment_object_ids", "matched_by"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "JOIN_CONFIRMED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "fragment_relation" }, "payload": { "required": ["relation_id", "confirmed_by"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "JOIN_REVOKED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "fragment_relation" }, "payload": { "required": ["relation_id", "reason", "revoked_by"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "ENVIRONMENT_SAMPLED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "environment_series" }, "payload": { "required": ["object_id", "sensor_id", "metric", "value", "measured_at", "quality"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "MEASUREMENT_BACKFILLED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "environment_series" }, "payload": { "required": ["object_id", "sensor_id", "metric", "value", "measured_at", "quality"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "DEVICE_CALIBRATED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "sensor_device" }, "payload": { "required": ["sensor_id", "valid_from", "valid_until"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "DEVICE_CALIBRATION_EXPIRED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "sensor_device" }, "payload": { "required": ["sensor_id", "expired_at"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "NITROGEN_HUMIDITY_RECORDED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "preservation_packaging" }, "payload": { "required": ["object_id", "humidity_pct", "measured_at", "quality"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "PACKAGING_ANOMALY_DETECTED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "preservation_packaging" }, "payload": { "required": ["object_id", "anomaly_type", "detected_at"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "ACQUISITION_RECORDED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "acquisition_dataset" }, "payload": { "required": ["object_id", "modality", "dataset_ref", "acquired_at"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "PACKAGE_PREPARED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "transport_package" }, "payload": { "required": ["package_id", "object_ids"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "HANDOFF_SIGNED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "custody_handoff" }, "payload": { "required": ["handoff_id", "object_ids", "signer_role", "signer"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "OBJECT_FROZEN" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "excavated_object" }, "payload": { "required": ["object_id", "reason"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "OBJECT_UNFROZEN" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "excavated_object" }, "payload": { "required": ["object_id", "reason"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "ALERT_RAISED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "threshold_alert" }, "payload": { "required": ["object_id", "category", "severity"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "ALERT_ACKNOWLEDGED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "threshold_alert" }, "payload": { "required": ["alert_id", "handled_by", "disposition"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "ACTION_AUTHORIZED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "conservation_action" }, "payload": { "required": ["object_id", "action_type", "authorized_by", "human_confirmed"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "ACTION_EXECUTED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "conservation_action" }, "payload": { "required": ["object_id", "action_id", "executed_by"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "OBJECT_ACCESSIONED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "excavated_object" }, "payload": { "required": ["object_id", "accession_code", "location_id"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "LOCATION_ASSIGNED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "excavated_object" }, "payload": { "required": ["object_id", "location_id"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "SENSITIVITY_CHANGED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "enum": ["excavated_object", "excavation_unit"] }, "payload": { "required": ["scope", "scope_id", "sensitivity"] } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "PUBLICATION_STATUS_CHANGED" } }, "required": ["event_type"] },
+      "then": { "properties": { "aggregate_type": { "const": "excavated_object" }, "payload": { "required": ["object_id", "publication_status"] } } }
+    }
+  ]
 }

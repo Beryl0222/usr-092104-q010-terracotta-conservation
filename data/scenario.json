@@ -1,0 +1,492 @@
+[
+  {
+    "event_id": "evt-001",
+    "event_type": "UNIT_REGISTERED",
+    "aggregate_type": "excavation_unit",
+    "aggregate_id": "unit-U001",
+    "occurred_at": "2026-09-20T07:00:00+08:00",
+    "version": 1,
+    "summary": "登记探方 T1-03 第2层",
+    "payload": {"unit_code": "T1-03", "layer_code": "L2"}
+  },
+  {
+    "event_id": "evt-002",
+    "event_type": "STRATUM_RECORDED",
+    "aggregate_type": "excavation_unit",
+    "aggregate_id": "unit-U001",
+    "occurred_at": "2026-09-20T07:05:00+08:00",
+    "version": 2,
+    "summary": "记录地层序列",
+    "payload": {"unit_id": "unit-U001", "layer_code": "L2", "sequence": 1}
+  },
+  {
+    "event_id": "evt-003",
+    "event_type": "SENSITIVITY_CHANGED",
+    "aggregate_type": "excavation_unit",
+    "aggregate_id": "unit-U001",
+    "occurred_at": "2026-09-20T07:08:00+08:00",
+    "version": 3,
+    "summary": "T1-03 列为敏感坑位",
+    "payload": {"scope": "pit", "scope_id": "unit-U001", "sensitivity": "sensitive_pit"}
+  },
+  {
+    "event_id": "evt-004",
+    "event_type": "UNIT_REGISTERED",
+    "aggregate_type": "excavation_unit",
+    "aggregate_id": "unit-U002",
+    "occurred_at": "2026-09-20T07:10:00+08:00",
+    "version": 1,
+    "summary": "登记探方 T1-04 第1层",
+    "payload": {"unit_code": "T1-04", "layer_code": "L1"}
+  },
+  {
+    "event_id": "evt-005",
+    "event_type": "DEVICE_CALIBRATED",
+    "aggregate_type": "sensor_device",
+    "aggregate_id": "sensor-S1",
+    "occurred_at": "2026-09-20T07:20:00+08:00",
+    "version": 1,
+    "summary": "探头 S1 校准，有效期至 12:00",
+    "payload": {"sensor_id": "sensor-S1", "valid_from": "2026-09-20T00:00:00+08:00", "valid_until": "2026-09-20T12:00:00+08:00"}
+  },
+  {
+    "event_id": "evt-006",
+    "event_type": "DEVICE_CALIBRATED",
+    "aggregate_type": "sensor_device",
+    "aggregate_id": "sensor-S2",
+    "occurred_at": "2026-09-20T07:25:00+08:00",
+    "version": 1,
+    "summary": "探头 S2 校准，全天有效",
+    "payload": {"sensor_id": "sensor-S2", "valid_from": "2026-09-20T00:00:00+08:00", "valid_until": "2026-09-21T00:00:00+08:00"}
+  },
+  {
+    "event_id": "evt-010",
+    "event_type": "OBJECT_LIFTED",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FIG01",
+    "occurred_at": "2026-09-20T08:00:00+08:00",
+    "version": 1,
+    "summary": "起取俑体 FIG-01",
+    "payload": {"unit_id": "unit-U002", "object_code": "FIG-01", "object_kind": "figure"}
+  },
+  {
+    "event_id": "evt-011",
+    "event_type": "OBJECT_LIFTED",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FRA",
+    "occurred_at": "2026-09-20T08:03:00+08:00",
+    "version": 1,
+    "summary": "起取残片 FR-A",
+    "payload": {"unit_id": "unit-U002", "object_code": "FR-A", "object_kind": "fragment"}
+  },
+  {
+    "event_id": "evt-012",
+    "event_type": "OBJECT_LIFTED",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FRB",
+    "occurred_at": "2026-09-20T08:06:00+08:00",
+    "version": 1,
+    "summary": "起取残片 FR-B",
+    "payload": {"unit_id": "unit-U002", "object_code": "FR-B", "object_kind": "fragment"}
+  },
+  {
+    "event_id": "evt-013",
+    "event_type": "OBJECT_LIFTED",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FRC",
+    "occurred_at": "2026-09-20T08:10:00+08:00",
+    "version": 1,
+    "summary": "起取残片 FR-C（敏感坑位）",
+    "payload": {"unit_id": "unit-U001", "object_code": "FR-C", "object_kind": "fragment"}
+  },
+  {
+    "event_id": "evt-020",
+    "event_type": "FRAGMENT_SPLIT",
+    "aggregate_type": "fragment_relation",
+    "aggregate_id": "rel-SPLIT-01",
+    "occurred_at": "2026-09-20T08:20:00+08:00",
+    "version": 1,
+    "summary": "FIG-01 拆分为 FR-A、FR-B",
+    "payload": {"parent_object_id": "obj-FIG01", "fragment_object_ids": ["obj-FRA", "obj-FRB"]}
+  },
+  {
+    "event_id": "evt-030",
+    "event_type": "ENVIRONMENT_SAMPLED",
+    "aggregate_type": "environment_series",
+    "aggregate_id": "env-FRA",
+    "occurred_at": "2026-09-20T09:00:00+08:00",
+    "version": 1,
+    "summary": "FR-A 湿度 88%（可靠）",
+    "payload": {"object_id": "obj-FRA", "sensor_id": "sensor-S1", "metric": "humidity", "value": 88.0, "measured_at": "2026-09-20T09:00:00+08:00", "quality": "reliable"}
+  },
+  {
+    "event_id": "evt-031",
+    "event_type": "ACQUISITION_RECORDED",
+    "aggregate_type": "acquisition_dataset",
+    "aggregate_id": "acq-01",
+    "occurred_at": "2026-09-20T09:20:00+08:00",
+    "version": 1,
+    "summary": "FR-A 超声采集",
+    "payload": {"object_id": "obj-FRA", "modality": "ultrasound", "dataset_ref": "us/FR-A/20260920-01", "acquired_at": "2026-09-20T09:20:00+08:00"}
+  },
+  {
+    "event_id": "evt-040",
+    "event_type": "JOIN_TENTATIVE",
+    "aggregate_type": "fragment_relation",
+    "aggregate_id": "rel-J1",
+    "occurred_at": "2026-09-20T09:40:00+08:00",
+    "version": 1,
+    "summary": "暂拼 FR-A 与 FR-C",
+    "payload": {"fragment_object_ids": ["obj-FRA", "obj-FRC"], "matched_by": "张修复"}
+  },
+  {
+    "event_id": "evt-032",
+    "event_type": "ENVIRONMENT_SAMPLED",
+    "aggregate_type": "environment_series",
+    "aggregate_id": "env-FRA",
+    "occurred_at": "2026-09-20T10:00:00+08:00",
+    "version": 2,
+    "summary": "FR-A 湿度升至 95%（可靠）",
+    "payload": {"object_id": "obj-FRA", "sensor_id": "sensor-S1", "metric": "humidity", "value": 95.0, "measured_at": "2026-09-20T10:00:00+08:00", "quality": "reliable"}
+  },
+  {
+    "event_id": "evt-050",
+    "event_type": "NITROGEN_HUMIDITY_RECORDED",
+    "aggregate_type": "preservation_packaging",
+    "aggregate_id": "pkg-FRA",
+    "occurred_at": "2026-09-20T10:05:00+08:00",
+    "version": 1,
+    "summary": "FR-A 充氮封装湿度 92%",
+    "payload": {"object_id": "obj-FRA", "humidity_pct": 92.0, "measured_at": "2026-09-20T10:05:00+08:00", "quality": "reliable"}
+  },
+  {
+    "event_id": "evt-051",
+    "event_type": "PACKAGING_ANOMALY_DETECTED",
+    "aggregate_type": "preservation_packaging",
+    "aggregate_id": "pkg-FRA",
+    "occurred_at": "2026-09-20T10:20:00+08:00",
+    "version": 2,
+    "summary": "FR-A 封装密封间隙异常",
+    "payload": {"object_id": "obj-FRA", "anomaly_type": "seal_gap", "detected_at": "2026-09-20T10:20:00+08:00"}
+  },
+  {
+    "event_id": "evt-060",
+    "event_type": "ALERT_RAISED",
+    "aggregate_type": "threshold_alert",
+    "aggregate_id": "alert-01",
+    "occurred_at": "2026-09-20T10:25:00+08:00",
+    "version": 1,
+    "summary": "FR-A 湿度越界（紧急）",
+    "payload": {"object_id": "obj-FRA", "category": "humidity_threshold", "severity": "critical"}
+  },
+  {
+    "event_id": "evt-061",
+    "event_type": "ALERT_RAISED",
+    "aggregate_type": "threshold_alert",
+    "aggregate_id": "alert-03",
+    "occurred_at": "2026-09-20T10:26:00+08:00",
+    "version": 1,
+    "summary": "FR-A 封装异常",
+    "payload": {"object_id": "obj-FRA", "category": "packaging_anomaly", "severity": "warning"}
+  },
+  {
+    "event_id": "evt-062",
+    "event_type": "ALERT_RAISED",
+    "aggregate_type": "threshold_alert",
+    "aggregate_id": "alert-02",
+    "occurred_at": "2026-09-20T10:27:00+08:00",
+    "version": 1,
+    "summary": "FR-B 关联探头失准",
+    "payload": {"object_id": "obj-FRB", "category": "device_inaccurate", "severity": "warning"}
+  },
+  {
+    "event_id": "evt-033",
+    "event_type": "MEASUREMENT_BACKFILLED",
+    "aggregate_type": "environment_series",
+    "aggregate_id": "env-FRA",
+    "occurred_at": "2026-09-20T11:00:00+08:00",
+    "version": 3,
+    "summary": "S2 断线恢复，补 08:30 温度（补数）",
+    "payload": {"object_id": "obj-FRA", "sensor_id": "sensor-S2", "metric": "temperature", "value": 18.5, "measured_at": "2026-09-20T08:30:00+08:00", "quality": "backfilled"}
+  },
+  {
+    "event_id": "evt-041",
+    "event_type": "JOIN_CONFIRMED",
+    "aggregate_type": "fragment_relation",
+    "aggregate_id": "rel-J1",
+    "occurred_at": "2026-09-20T11:20:00+08:00",
+    "version": 2,
+    "summary": "确认 FR-A/FR-C 拼合（后被证误）",
+    "payload": {"relation_id": "rel-J1", "confirmed_by": "李修复"}
+  },
+  {
+    "event_id": "evt-007",
+    "event_type": "DEVICE_CALIBRATION_EXPIRED",
+    "aggregate_type": "sensor_device",
+    "aggregate_id": "sensor-S1",
+    "occurred_at": "2026-09-20T12:05:00+08:00",
+    "version": 2,
+    "summary": "探头 S1 校准失效",
+    "payload": {"sensor_id": "sensor-S1", "expired_at": "2026-09-20T12:00:00+08:00"}
+  },
+  {
+    "event_id": "evt-034",
+    "event_type": "ENVIRONMENT_SAMPLED",
+    "aggregate_type": "environment_series",
+    "aggregate_id": "env-FRA",
+    "occurred_at": "2026-09-20T12:40:00+08:00",
+    "version": 4,
+    "summary": "FR-A 12:30 湿度（校准失效标记，不作可靠测量）",
+    "payload": {"object_id": "obj-FRA", "sensor_id": "sensor-S1", "metric": "humidity", "value": 99.0, "measured_at": "2026-09-20T12:30:00+08:00", "quality": "calibration_expired"}
+  },
+  {
+    "event_id": "evt-035",
+    "event_type": "ACQUISITION_RECORDED",
+    "aggregate_type": "acquisition_dataset",
+    "aggregate_id": "acq-02",
+    "occurred_at": "2026-09-20T12:45:00+08:00",
+    "version": 1,
+    "summary": "FR-A 三维采集",
+    "payload": {"object_id": "obj-FRA", "modality": "three_d", "dataset_ref": "3d/FR-A/20260920-01", "acquired_at": "2026-09-20T12:45:00+08:00"}
+  },
+  {
+    "event_id": "evt-070",
+    "event_type": "OBJECT_FROZEN",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FRA",
+    "occurred_at": "2026-09-20T13:00:00+08:00",
+    "version": 2,
+    "summary": "湿度越界未处置，仅冻结 FR-A",
+    "payload": {"object_id": "obj-FRA", "reason": "湿度越界+封装异常待人工处置"}
+  },
+  {
+    "event_id": "evt-042",
+    "event_type": "JOIN_REVOKED",
+    "aggregate_type": "fragment_relation",
+    "aggregate_id": "rel-J1",
+    "occurred_at": "2026-09-20T13:05:00+08:00",
+    "version": 3,
+    "summary": "撤销错误拼合 FR-A/FR-C（只新增关系，不改历史）",
+    "payload": {"relation_id": "rel-J1", "reason": "茬口与彩绘走向不符", "revoked_by": "李修复"}
+  },
+  {
+    "event_id": "evt-063",
+    "event_type": "ALERT_ACKNOWLEDGED",
+    "aggregate_type": "threshold_alert",
+    "aggregate_id": "alert-01",
+    "occurred_at": "2026-09-20T13:10:00+08:00",
+    "version": 2,
+    "summary": "湿度告警转人工处置",
+    "payload": {"alert_id": "alert-01", "handled_by": "王值班", "disposition": "referred_for_handling"}
+  },
+  {
+    "event_id": "evt-064",
+    "event_type": "ALERT_ACKNOWLEDGED",
+    "aggregate_type": "threshold_alert",
+    "aggregate_id": "alert-03",
+    "occurred_at": "2026-09-20T13:12:00+08:00",
+    "version": 2,
+    "summary": "封装异常已处理",
+    "payload": {"alert_id": "alert-03", "handled_by": "王值班", "disposition": "resolved"}
+  },
+  {
+    "event_id": "evt-065",
+    "event_type": "ALERT_ACKNOWLEDGED",
+    "aggregate_type": "threshold_alert",
+    "aggregate_id": "alert-02",
+    "occurred_at": "2026-09-20T13:15:00+08:00",
+    "version": 2,
+    "summary": "设备失准转人工核查",
+    "payload": {"alert_id": "alert-02", "handled_by": "王值班", "disposition": "referred_for_handling"}
+  },
+  {
+    "event_id": "evt-080",
+    "event_type": "ACTION_AUTHORIZED",
+    "aggregate_type": "conservation_action",
+    "aggregate_id": "act-01",
+    "occurred_at": "2026-09-20T13:25:00+08:00",
+    "version": 1,
+    "summary": "人工授权清理 FR-B（FR-B 未冻结）",
+    "payload": {"object_id": "obj-FRB", "action_type": "cleaning", "authorized_by": "赵修复", "human_confirmed": true}
+  },
+  {
+    "event_id": "evt-081",
+    "event_type": "ACTION_EXECUTED",
+    "aggregate_type": "conservation_action",
+    "aggregate_id": "act-01",
+    "occurred_at": "2026-09-20T13:30:00+08:00",
+    "version": 2,
+    "summary": "执行 FR-B 清理",
+    "payload": {"object_id": "obj-FRB", "action_id": "act-01", "executed_by": "赵修复"}
+  },
+  {
+    "event_id": "evt-071",
+    "event_type": "OBJECT_UNFROZEN",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FRA",
+    "occurred_at": "2026-09-20T13:35:00+08:00",
+    "version": 3,
+    "summary": "FR-A 处置完成，解除冻结",
+    "payload": {"object_id": "obj-FRA", "reason": "更换封装并完成应急保湿"}
+  },
+  {
+    "event_id": "evt-090",
+    "event_type": "IDENTITY_PROPOSED",
+    "aggregate_type": "identity_candidate",
+    "aggregate_id": "cand-01",
+    "occurred_at": "2026-09-20T13:40:00+08:00",
+    "version": 1,
+    "summary": "提出 FR-C 属于 FIG-01",
+    "payload": {"object_id": "obj-FRC", "candidate_figure_id": "obj-FIG01", "proposed_by": "张修复"}
+  },
+  {
+    "event_id": "evt-091",
+    "event_type": "IDENTITY_RESOLVED",
+    "aggregate_type": "identity_candidate",
+    "aggregate_id": "cand-01",
+    "occurred_at": "2026-09-20T13:42:00+08:00",
+    "version": 2,
+    "summary": "确认 FR-C 属于 FIG-01",
+    "payload": {"proposal_id": "cand-01", "resolution": "confirmed"}
+  },
+  {
+    "event_id": "evt-043",
+    "event_type": "JOIN_TENTATIVE",
+    "aggregate_type": "fragment_relation",
+    "aggregate_id": "rel-J2",
+    "occurred_at": "2026-09-20T13:45:00+08:00",
+    "version": 1,
+    "summary": "暂拼 FR-A 与 FR-B",
+    "payload": {"fragment_object_ids": ["obj-FRA", "obj-FRB"], "matched_by": "张修复"}
+  },
+  {
+    "event_id": "evt-044",
+    "event_type": "JOIN_CONFIRMED",
+    "aggregate_type": "fragment_relation",
+    "aggregate_id": "rel-J2",
+    "occurred_at": "2026-09-20T13:50:00+08:00",
+    "version": 2,
+    "summary": "确认 FR-A/FR-B 拼合",
+    "payload": {"relation_id": "rel-J2", "confirmed_by": "李修复"}
+  },
+  {
+    "event_id": "evt-082",
+    "event_type": "ACTION_AUTHORIZED",
+    "aggregate_type": "conservation_action",
+    "aggregate_id": "act-02",
+    "occurred_at": "2026-09-20T13:52:00+08:00",
+    "version": 1,
+    "summary": "解冻后人工授权加固 FR-A",
+    "payload": {"object_id": "obj-FRA", "action_type": "reinforcement", "authorized_by": "赵修复", "human_confirmed": true}
+  },
+  {
+    "event_id": "evt-083",
+    "event_type": "ACTION_EXECUTED",
+    "aggregate_type": "conservation_action",
+    "aggregate_id": "act-02",
+    "occurred_at": "2026-09-20T13:55:00+08:00",
+    "version": 2,
+    "summary": "执行 FR-A 加固",
+    "payload": {"object_id": "obj-FRA", "action_id": "act-02", "executed_by": "赵修复"}
+  },
+  {
+    "event_id": "evt-100",
+    "event_type": "PACKAGE_PREPARED",
+    "aggregate_type": "transport_package",
+    "aggregate_id": "tp-01",
+    "occurred_at": "2026-09-20T14:00:00+08:00",
+    "version": 1,
+    "summary": "FR-A、FR-B 装入运输封装 tp-01",
+    "payload": {"package_id": "tp-01", "object_ids": ["obj-FRA", "obj-FRB"]}
+  },
+  {
+    "event_id": "evt-110",
+    "event_type": "HANDOFF_SIGNED",
+    "aggregate_type": "custody_handoff",
+    "aggregate_id": "handoff-H1",
+    "occurred_at": "2026-09-20T14:05:00+08:00",
+    "version": 1,
+    "summary": "交出方签署",
+    "payload": {"handoff_id": "handoff-H1", "object_ids": ["obj-FRA", "obj-FRB"], "signer_role": "relinquishing", "signer": "钱值班"}
+  },
+  {
+    "event_id": "evt-111",
+    "event_type": "HANDOFF_SIGNED",
+    "aggregate_type": "custody_handoff",
+    "aggregate_id": "handoff-H1",
+    "occurred_at": "2026-09-20T14:10:00+08:00",
+    "version": 2,
+    "summary": "接收方副署，责任转移",
+    "payload": {"handoff_id": "handoff-H1", "object_ids": ["obj-FRA", "obj-FRB"], "signer_role": "receiving", "signer": "孙修复"}
+  },
+  {
+    "event_id": "evt-120",
+    "event_type": "LOCATION_ASSIGNED",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FRB",
+    "occurred_at": "2026-09-20T14:40:00+08:00",
+    "version": 2,
+    "summary": "FR-B 分配库位 B-01",
+    "payload": {"object_id": "obj-FRB", "location_id": "loc-B01"}
+  },
+  {
+    "event_id": "evt-121",
+    "event_type": "OBJECT_ACCESSIONED",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FRB",
+    "occurred_at": "2026-09-20T14:50:00+08:00",
+    "version": 3,
+    "summary": "FR-B 入库",
+    "payload": {"object_id": "obj-FRB", "accession_code": "ACC-FRB-0002", "location_id": "loc-B01"}
+  },
+  {
+    "event_id": "evt-122",
+    "event_type": "OBJECT_ACCESSIONED",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FRA",
+    "occurred_at": "2026-09-20T14:55:00+08:00",
+    "version": 4,
+    "summary": "FR-A 入库",
+    "payload": {"object_id": "obj-FRA", "accession_code": "ACC-FRA-0001", "location_id": "loc-A01"}
+  },
+  {
+    "event_id": "evt-130",
+    "event_type": "SENSITIVITY_CHANGED",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FRC",
+    "occurred_at": "2026-09-22T09:00:00+08:00",
+    "version": 2,
+    "summary": "FR-C 列为未发布发现",
+    "payload": {"scope": "object", "scope_id": "obj-FRC", "sensitivity": "unpublished_find"}
+  },
+  {
+    "event_id": "evt-140",
+    "event_type": "PUBLICATION_STATUS_CHANGED",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FIG01",
+    "occurred_at": "2026-09-25T10:00:00+08:00",
+    "version": 2,
+    "summary": "FIG-01 资料发布",
+    "payload": {"object_id": "obj-FIG01", "publication_status": "published"}
+  },
+  {
+    "event_id": "evt-141",
+    "event_type": "PUBLICATION_STATUS_CHANGED",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FRA",
+    "occurred_at": "2026-09-25T10:05:00+08:00",
+    "version": 5,
+    "summary": "FR-A 资料发布",
+    "payload": {"object_id": "obj-FRA", "publication_status": "published"}
+  },
+  {
+    "event_id": "evt-142",
+    "event_type": "PUBLICATION_STATUS_CHANGED",
+    "aggregate_type": "excavated_object",
+    "aggregate_id": "obj-FRB",
+    "occurred_at": "2026-09-25T10:10:00+08:00",
+    "version": 4,
+    "summary": "FR-B 资料发布",
+    "payload": {"object_id": "obj-FRB", "publication_status": "published"}
+  }
+]
