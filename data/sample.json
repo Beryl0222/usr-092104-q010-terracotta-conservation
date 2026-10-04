@@ -2,8 +2,18 @@
   "event_id": "sample-010",
   "event_type": "OBJECT_LIFTED",
   "aggregate_type": "excavated_object",
-  "aggregate_id": "aggregate-010",
+  "aggregate_id": "obj-figure-01",
   "occurred_at": "2026-09-20T12:00:00+08:00",
   "version": 1,
-  "summary": "秦俑现场保护交接领域样例"
+  "summary": "一号坑出土彩绘俑体一件",
+  "actor": {
+    "id": "staff-021",
+    "role": "duty_officer"
+  },
+  "payload": {
+    "object_kind": "figure",
+    "trench_id": "trench-T1",
+    "stratum_id": "stratum-3",
+    "publication_state": "unpublished"
+  }
 }

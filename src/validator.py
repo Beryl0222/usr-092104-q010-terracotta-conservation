@@ -1,9 +1,8 @@
-"""校验领域事件信封的基础字段。"""
+"""事件信封基础校验的兼容入口。
 
-REQUIRED = ("event_id", "event_type", "aggregate_type", "aggregate_id", "occurred_at", "version", "summary")
+领域事件目录已迁至 :mod:`src.contract`，本模块保留原有导入路径，
+仓库现有事件版本可继续调用 ``validate_event``。
+"""
+from src.contract import validate_event
 
-def validate_event(record: dict) -> list[str]:
-    errors = [f"缺少字段：{name}" for name in REQUIRED if name not in record]
-    if "version" in record and (not isinstance(record["version"], int) or record["version"] < 1):
-        errors.append("version 必须是正整数")
-    return errors
+__all__ = ["validate_event"]

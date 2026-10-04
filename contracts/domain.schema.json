@@ -19,20 +19,52 @@
     "event_type": {
       "type": "string",
       "enum": [
+        "TRENCH_OPENED",
+        "STRATUM_RECORDED",
         "OBJECT_LIFTED",
+        "FRAGMENT_DETACHED",
+        "EXAMINATION_RECORDED",
+        "CANDIDATE_IDENTITY_PROPOSED",
+        "CANDIDATE_IDENTITY_CONFIRMED",
+        "CANDIDATE_IDENTITY_REJECTED",
+        "RELATION_OPENED",
+        "RELATION_CONFIRMED",
+        "INSTRUMENT_REGISTERED",
+        "CALIBRATION_RECORDED",
         "ENVIRONMENT_SAMPLED",
+        "MONITORING_LIMITS_SET",
+        "ALERT_RAISED",
+        "ALERT_ACKNOWLEDGED",
+        "ALERT_RESOLVED",
+        "OBJECT_HOLD_PLACED",
+        "OBJECT_HOLD_RELEASED",
+        "PACKAGE_PREPARED",
+        "PACKAGE_SEALED",
+        "PACKAGE_N2_REFRESHED",
+        "PACKAGE_STATUS_RECORDED",
+        "ACTION_PROPOSED",
         "ACTION_AUTHORIZED",
+        "ACTION_COMPLETED",
+        "HANDOFF_PREPARED",
         "HANDOFF_SIGNED",
+        "STORAGE_LOCATION_REGISTERED",
         "OBJECT_ACCESSIONED"
       ]
     },
     "aggregate_type": {
       "type": "string",
       "enum": [
+        "excavation_unit",
         "excavated_object",
+        "candidate_identity",
+        "fragment_relation",
         "environment_series",
+        "instrument",
+        "monitoring_alert",
+        "sealed_package",
         "conservation_action",
-        "custody_handoff"
+        "custody_handoff",
+        "storage_location"
       ]
     },
     "aggregate_id": {
@@ -50,6 +82,20 @@
     "summary": {
       "type": "string",
       "minLength": 1
+    },
+    "actor": {
+      "type": "object",
+      "required": ["id", "role"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "role": {
+          "type": "string",
+          "enum": ["system", "duty_officer", "conservator", "registrar", "researcher", "public"]
+        }
+      }
+    },
+    "payload": {
+      "type": "object"
     }
   },
   "additionalProperties": true
